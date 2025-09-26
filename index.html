@@ -14,6 +14,12 @@
     <link rel="shortcut icon" type="image/x-icon" href="favicon/favicon.ico">
     <meta name="theme-color" content="#667eea">
     
+    <!-- PWA Meta Tags -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="价值观纠正器">
+    
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XEZ049M5R2"></script>
     <script>
@@ -284,6 +290,218 @@
                 text-align: right;
             }
         }
+        
+        /* 自定义代币弹窗样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: linear-gradient(145deg, #ffffff, #f8faff);
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 25px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .close {
+            color: white;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        
+        .close:hover {
+            opacity: 0.7;
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .search-container {
+            margin-bottom: 25px;
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 15px 20px;
+            font-size: 16px;
+            border: 2px solid #e1e8ff;
+            border-radius: 12px;
+            background: linear-gradient(145deg, #ffffff, #f0f4ff);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .search-container input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .search-results {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .token-result {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            background: linear-gradient(145deg, #ffffff, #f8faff);
+            border: 2px solid #e1e8ff;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .token-result:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+        }
+        
+        .token-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 15px;
+            object-fit: cover;
+        }
+        
+        .token-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .token-name-row {
+            margin-bottom: 8px;
+        }
+        
+        .token-name {
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .token-bottom-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .token-symbol {
+            color: #667eea;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+        
+        .token-price {
+            color: #27ae60;
+            font-weight: 600;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px 20px;
+            color: #667eea;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e1e8ff;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+        
+        /* 添加到主屏幕按钮样式 */
+        .add-to-home-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-weight: 500;
+            display: block;
+            opacity: 0.8;
+            font-size: 24px;
+            padding: 0;
+            line-height: 1;
+        }
+        
+        .add-to-home-btn svg {
+            transition: all 0.3s ease;
+            fill: url(#gradient);
+        }
+        
+        .add-to-home-btn:hover {
+            transform: translateY(-2px);
+            opacity: 1;
+            filter: drop-shadow(0 4px 10px rgba(102, 126, 234, 0.3));
+        }
+        
+        .add-to-home-btn:hover svg {
+            fill: url(#gradientHover);
+        }
     </style>
 </head>
 <body>
@@ -298,6 +516,8 @@
                 <option value="SOL">🟣 SOL</option>
                 <option value="BNB">🟡 BNB</option>
                 <option value="OKB">⚫ OKB</option>
+                <option value="CUSTOM">🔍 自定义代币</option>
+                <option value="TEMP_CUSTOM_PLACEHOLDER" style="display: none;"></option>
             </optgroup>
             <optgroup label="法币">
                 <option value="USD">🇺🇸 USD</option>
@@ -332,6 +552,8 @@
                 <option value="SOL">🟣 SOL</option>
                 <option value="BNB">🟡 BNB</option>
                 <option value="OKB">⚫ OKB</option>
+                <option value="CUSTOM">🔍 自定义代币</option>
+                <option value="TEMP_CUSTOM_PLACEHOLDER" style="display: none;"></option>
             </optgroup>
             <optgroup label="法币">
                 <option value="USD">🇺🇸 USD</option>
@@ -366,6 +588,8 @@
                 <option value="SOL" selected>🟣 SOL</option>
                 <option value="BNB">🟡 BNB</option>
                 <option value="OKB">⚫ OKB</option>
+                <option value="CUSTOM">🔍 自定义代币</option>
+                <option value="TEMP_CUSTOM_PLACEHOLDER" style="display: none;"></option>
             </optgroup>
             <optgroup label="法币">
                 <option value="USD">🇺🇸 USD</option>
@@ -400,6 +624,8 @@
                 <option value="SOL">🟣 SOL</option>
                 <option value="BNB">🟡 BNB</option>
                 <option value="OKB">⚫ OKB</option>
+                <option value="CUSTOM">🔍 自定义代币</option>
+                <option value="TEMP_CUSTOM_PLACEHOLDER" style="display: none;"></option>
             </optgroup>
             <optgroup label="法币">
                 <option value="USD" selected>🇺🇸 USD</option>
@@ -434,6 +660,8 @@
                 <option value="SOL">🟣 SOL</option>
                 <option value="BNB">🟡 BNB</option>
                 <option value="OKB">⚫ OKB</option>
+                <option value="CUSTOM">🔍 自定义代币</option>
+                <option value="TEMP_CUSTOM_PLACEHOLDER" style="display: none;"></option>
             </optgroup>
             <optgroup label="法币">
                 <option value="USD">🇺🇸 USD</option>
@@ -468,6 +696,8 @@
                 <option value="SOL">🟣 SOL</option>
                 <option value="BNB">🟡 BNB</option>
                 <option value="OKB">⚫ OKB</option>
+                <option value="CUSTOM">🔍 自定义代币</option>
+                <option value="TEMP_CUSTOM_PLACEHOLDER" style="display: none;"></option>
             </optgroup>
             <optgroup label="法币">
                 <option value="USD">🇺🇸 USD</option>
@@ -494,30 +724,45 @@
         <input type="text" id="amount6" placeholder="输入金额">
     </div>
     
-    <div class="social-links">
-        <svg width="0" height="0" style="position: absolute;">
-            <defs>
-                <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#667eea"/>
-                    <stop offset="100%" stop-color="#764ba2"/>
-                </linearGradient>
-                <linearGradient id="gradientHover" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#764ba2"/>
-                    <stop offset="100%" stop-color="#667eea"/>
-                </linearGradient>
-            </defs>
-        </svg>
+    <div class="social-links" style="display: flex; justify-content: space-between; align-items: center;">
+        <!-- API状态指示器 -->
+        <div id="apiStatus" class="api-status" style="font-size: 11px; color: #6c757d;">
+            正在初始化汇率服务...
+        </div>
         
-        <a href="https://x.com/Wolfy_XBT" target="_blank" class="author">
-            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        <!-- 按钮组 -->
+        <div style="display: flex; gap: 10px; align-items: center;">
+            <svg width="0" height="0" style="position: absolute;">
+                <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#667eea"/>
+                        <stop offset="100%" stop-color="#764ba2"/>
+                    </linearGradient>
+                    <linearGradient id="gradientHover" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#764ba2"/>
+                        <stop offset="100%" stop-color="#667eea"/>
+                    </linearGradient>
+                </defs>
             </svg>
-        </a>
-        <a href="https://github.com/WolfyXBT/ValuesCorrector" target="_blank" class="author">
-            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
-        </a>
+            
+            <a href="https://x.com/Wolfy_XBT" target="_blank" class="author">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+            </a>
+            <a href="https://github.com/WolfyXBT/ValuesCorrector" target="_blank" class="author">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+            </a>
+            <!-- 添加到主屏幕按钮 -->
+            <button id="addToHomeBtn" class="author add-to-home-btn" title="添加到主屏幕">
+                <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zM7 4V3h10v1H7zM7 18V6h10v12H7zM7 21v-1h10v1H7z" fill="url(#gradient)"/>
+                    <path d="M12 8l-4 4h2.5v3h3v-3H16l-4-4z" fill="url(#gradient)"/>
+                </svg>
+            </button>
+        </div>
     </div>
 
     <script>
@@ -525,15 +770,305 @@
         let updating = false;
         let lastInputField = 1; // 记录最后一次输入数字的栏位
         
+        // PWA 添加到主屏幕功能
+        let deferredPrompt;
+        const addToHomeBtn = document.getElementById('addToHomeBtn');
+        
+        // 监听beforeinstallprompt事件
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('PWA安装提示事件触发');
+            e.preventDefault();
+            deferredPrompt = e;
+            // 显示添加到主屏幕按钮
+            addToHomeBtn.style.display = 'block';
+        });
+        
+        // 点击添加到主屏幕按钮
+        addToHomeBtn.addEventListener('click', async () => {
+            const isMobile = isMobileDevice();
+            
+            if (!isMobile) {
+                // 桌面端提示
+                showDesktopPrompt();
+                return;
+            }
+            
+            if (deferredPrompt) {
+                // Android Chrome: 直接触发安装提示
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`PWA安装结果: ${outcome}`);
+                if (outcome === 'accepted') {
+                    alert('应用已成功添加到主屏幕！🎉');
+                }
+                deferredPrompt = null;
+            } else {
+                // 移动端手动指引
+                if (window.navigator.standalone === false) {
+                    // iOS Safari: 显示更直观的添加指引
+                    showIOSInstallPrompt();
+                } else {
+                    // 显示手动添加指引
+                    showManualInstallInstructions();
+                }
+            }
+        });
+        
+        // 桌面端提示
+        function showDesktopPrompt() {
+            const popup = document.createElement('div');
+            popup.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.8);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 10000;
+                    font-family: 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+                    animation: fadeIn 0.3s ease-out;
+                ">
+                    <div style="
+                        background: white;
+                        padding: 30px;
+                        border-radius: 20px;
+                        text-align: center;
+                        max-width: 380px;
+                        margin: 20px;
+                        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+                        animation: slideUp 0.3s ease-out;
+                    ">
+                        <div style="margin-bottom: 20px;">
+                            <svg width="60" height="60" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zM7 4V3h10v1H7zM7 18V6h10v12H7zM7 21v-1h10v1H7z" fill="#667eea"/>
+                                <path d="M12 8l-4 4h2.5v3h3v-3H16l-4-4z" fill="#667eea"/>
+                            </svg>
+                        </div>
+                        <h3 style="margin: 0 0 15px 0; color: #667eea; font-size: 24px;">移动设备专享</h3>
+                        <p style="color: #666; font-size: 16px; line-height: 1.6; margin: 15px 0;">
+                            添加到主屏幕功能需要在手机上使用
+                        </p>
+                        <p style="color: #999; font-size: 14px; line-height: 1.5; margin: 15px 0;">
+                            请用手机浏览器打开本网站，<br>
+                            即可将价值观纠正器添加到手机主屏幕
+                        </p>
+                        <button onclick="this.parentElement.parentElement.remove()" style="
+                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                            color: white;
+                            border: none;
+                            padding: 12px 30px;
+                            border-radius: 25px;
+                            font-size: 16px;
+                            cursor: pointer;
+                            transition: transform 0.2s;
+                            margin-top: 10px;
+                        ">知道了</button>
+                    </div>
+                </div>
+                <style>
+                    @keyframes fadeIn {
+                        from { opacity: 0; }
+                        to { opacity: 1; }
+                    }
+                    @keyframes slideUp {
+                        from { transform: translateY(30px); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+                </style>
+            `;
+            document.body.appendChild(popup);
+            
+            // 点击外部关闭
+            popup.addEventListener('click', (e) => {
+                if (e.target === popup) {
+                    popup.remove();
+                }
+            });
+        }
+
+        // iOS专门的安装提示
+        function showIOSInstallPrompt() {
+            const popup = document.createElement('div');
+            popup.innerHTML = `
+                <div style="
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.8);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 10000;
+                    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+                    animation: fadeIn 0.3s ease-out;
+                ">
+                    <div style="
+                        background: white;
+                        padding: 25px;
+                        border-radius: 20px;
+                        text-align: center;
+                        max-width: 320px;
+                        margin: 20px;
+                        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+                        animation: slideUp 0.3s ease-out;
+                    ">
+                        <div style="margin-bottom: 15px;">
+                            <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zM7 4V3h10v1H7zM7 18V6h10v12H7zM7 21v-1h10v1H7z" fill="#007AFF"/>
+                                <path d="M12 8l-4 4h2.5v3h3v-3H16l-4-4z" fill="#007AFF"/>
+                            </svg>
+                        </div>
+                        <h3 style="margin: 0 0 15px 0; color: #007AFF; font-size: 20px;">添加到主屏幕</h3>
+                        <p style="color: #333; font-size: 14px; line-height: 1.5; margin: 10px 0;">
+                            <span style="display: inline-block; width: 20px; height: 20px; background: #007AFF; color: white; border-radius: 50%; text-align: center; line-height: 20px; font-size: 12px; margin-right: 8px;">1</span>
+                            点击底部的"分享"按钮
+                        </p>
+                        <p style="color: #333; font-size: 14px; line-height: 1.5; margin: 10px 0;">
+                            <span style="display: inline-block; width: 20px; height: 20px; background: #007AFF; color: white; border-radius: 50%; text-align: center; line-height: 20px; font-size: 12px; margin-right: 8px;">2</span>
+                            选择"添加到主屏幕"
+                        </p>
+                        <p style="color: #333; font-size: 14px; line-height: 1.5; margin: 10px 0 20px 0;">
+                            <span style="display: inline-block; width: 20px; height: 20px; background: #007AFF; color: white; border-radius: 50%; text-align: center; line-height: 20px; font-size: 12px; margin-right: 8px;">3</span>
+                            点击"添加"完成
+                        </p>
+                        <button onclick="this.parentElement.parentElement.remove()" style="
+                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                            color: white;
+                            border: none;
+                            padding: 12px 30px;
+                            border-radius: 25px;
+                            font-size: 16px;
+                            cursor: pointer;
+                            transition: transform 0.2s;
+                        ">知道了</button>
+                    </div>
+                </div>
+                <style>
+                    @keyframes fadeIn {
+                        from { opacity: 0; }
+                        to { opacity: 1; }
+                    }
+                    @keyframes slideUp {
+                        from { transform: translateY(30px); opacity: 0; }
+                        to { transform: translateY(0); opacity: 1; }
+                    }
+                </style>
+            `;
+            document.body.appendChild(popup);
+            
+            // 点击外部关闭
+            popup.addEventListener('click', (e) => {
+                if (e.target === popup) {
+                    popup.remove();
+                }
+            });
+        }
+
+        // 手动添加指引
+        function showManualInstallInstructions() {
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            const isAndroid = /Android/.test(navigator.userAgent);
+            
+            let message = '';
+            if (isIOS) {
+                message = '在Safari中：\n1. 点击底部分享按钮 📤\n2. 选择"添加到主屏幕"\n3. 点击"添加"';
+            } else if (isAndroid) {
+                message = '在Chrome中：\n1. 点击右上角菜单 ⋮\n2. 选择"添加到主屏幕"\n3. 点击"添加"';
+            } else {
+                message = '请在移动设备上使用浏览器的"添加到主屏幕"功能';
+            }
+            
+            alert(message);
+        }
+        
+        // 检查是否已经安装
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA已安装到主屏幕');
+            addToHomeBtn.style.display = 'none';
+        });
+        
+        // 检测移动设备并显示按钮
+        function isMobileDevice() {
+            return window.innerWidth <= 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+        
+        // 初始化按钮显示（所有设备都显示）
+        setTimeout(() => {
+            if (addToHomeBtn) {
+                addToHomeBtn.style.display = 'block';
+                console.log('添加到主屏幕按钮已显示');
+            }
+        }, 500);
+        
+        // API状态跟踪
+        let apiStatus = {
+            coingecko: true,
+            lastCheck: 0,
+            rateLimited: false,
+            usingBackup: false
+        };
+
+        // 更新API状态显示
+        function updateApiStatusDisplay(isRealTime, errorMessage) {
+            const statusElement = document.getElementById('apiStatus');
+            if (!statusElement) return;
+            
+            // 确保状态元素始终可见
+            statusElement.style.display = 'block';
+            
+            if (isRealTime) {
+                statusElement.innerHTML = '实时汇率已加载';
+                statusElement.style.color = '#28a745';
+            } else {
+                // 使用传入的错误消息，如果没有则使用默认消息
+                const displayMessage = errorMessage || '已超过汇率服务 API 访问限制次数，请稍后再试';
+                statusElement.innerHTML = displayMessage;
+                statusElement.style.color = '#dc3545';
+            }
+        }
+
         // 获取真实汇率
         async function loadRates() {
+            // 显示加载状态
+            const statusElement = document.getElementById('apiStatus');
+            if (statusElement) {
+                statusElement.innerHTML = '正在加载汇率数据...';
+                statusElement.style.color = '#6c757d';
+                statusElement.style.display = 'block';
+            }
+            
             try {
                 // 获取加密货币价格 (USD)
                 const cryptoResponse = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,binancecoin,okb&vs_currencies=usd');
+                
+                if (cryptoResponse.status === 429) {
+                    console.warn('CoinGecko API 达到调用限制 (429)');
+                    apiStatus.rateLimited = true;
+                    apiStatus.lastCheck = Date.now();
+                    throw new Error('CoinGecko API Rate Limited');
+                }
+                
                 const cryptoData = await cryptoResponse.json();
+                apiStatus.coingecko = true;
+                apiStatus.rateLimited = false;
+                apiStatus.usingBackup = false;
                 
                 // 获取法币汇率 (USD基准)
                 const fiatResponse = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+                
+                if (fiatResponse.status === 429 || !fiatResponse.ok) {
+                    console.warn('ExchangeRate API 达到调用限制或请求失败');
+                    apiStatus.rateLimited = true;
+                    apiStatus.lastCheck = Date.now();
+                    throw new Error('ExchangeRate API Rate Limited');
+                }
+                
                 const fiatData = await fiatResponse.json();
                 
                 const btcPrice = cryptoData.bitcoin.usd;
@@ -561,7 +1096,9 @@
                 rates = {};
                 
                 // 构建汇率矩阵
-                const allCurrencies = [...cryptos, 'USD', ...currencies, ...products];
+                // 获取自定义代币符号列表
+                const customTokenSymbols = customTokens ? Array.from(customTokens.keys()) : [];
+                const allCurrencies = [...cryptos, ...customTokenSymbols, 'USD', ...currencies, ...products];
                 allCurrencies.forEach(from => {
                     rates[from] = {};
                     allCurrencies.forEach(to => {
@@ -582,6 +1119,33 @@
                         } else if (currencies.includes(from) && cryptos.includes(to)) {
                             // 其他法币到加密货币
                             rates[from][to] = 1 / (cryptoPrices[to] * fiatData.rates[from]);
+                        } else if (customTokens && customTokenSymbols.includes(from) && customTokenSymbols.includes(to)) {
+                            // 自定义代币之间
+                            const fromPrice = customTokens.get(from).price;
+                            const toPrice = customTokens.get(to).price;
+                            rates[from][to] = fromPrice / toPrice;
+                        } else if (customTokens && customTokenSymbols.includes(from) && to === 'USD') {
+                            // 自定义代币到美元
+                            rates[from][to] = customTokens.get(from).price;
+                        } else if (customTokens && from === 'USD' && customTokenSymbols.includes(to)) {
+                            // 美元到自定义代币
+                            rates[from][to] = 1 / customTokens.get(to).price;
+                        } else if (customTokens && customTokenSymbols.includes(from) && cryptos.includes(to)) {
+                            // 自定义代币到预设加密货币
+                            const fromPrice = customTokens.get(from).price;
+                            rates[from][to] = fromPrice / cryptoPrices[to];
+                        } else if (customTokens && cryptos.includes(from) && customTokenSymbols.includes(to)) {
+                            // 预设加密货币到自定义代币
+                            const toPrice = customTokens.get(to).price;
+                            rates[from][to] = cryptoPrices[from] / toPrice;
+                        } else if (customTokens && customTokenSymbols.includes(from) && currencies.includes(to)) {
+                            // 自定义代币到其他法币
+                            const fromPrice = customTokens.get(from).price;
+                            rates[from][to] = fromPrice * fiatData.rates[to];
+                        } else if (customTokens && currencies.includes(from) && customTokenSymbols.includes(to)) {
+                            // 其他法币到自定义代币
+                            const toPrice = customTokens.get(to).price;
+                            rates[from][to] = 1 / (toPrice * fiatData.rates[from]);
                         } else if (from === 'USD' && currencies.includes(to)) {
                             // 美元到其他法币
                             rates[from][to] = fiatData.rates[to];
@@ -609,6 +1173,14 @@
                         } else if (products.includes(from) && cryptos.includes(to)) {
                             // 产品到加密货币
                             rates[from][to] = productPrices[from] / cryptoPrices[to];
+                        } else if (customTokens && customTokenSymbols.includes(from) && products.includes(to)) {
+                            // 自定义代币到产品
+                            const fromPrice = customTokens.get(from).price;
+                            rates[from][to] = fromPrice / productPrices[to];
+                        } else if (customTokens && products.includes(from) && customTokenSymbols.includes(to)) {
+                            // 产品到自定义代币
+                            const toPrice = customTokens.get(to).price;
+                            rates[from][to] = productPrices[from] / toPrice;
                         } else if (products.includes(from) && products.includes(to)) {
                             // 产品之间
                             rates[from][to] = productPrices[from] / productPrices[to];
@@ -617,41 +1189,59 @@
                 });
                 
                 console.log('汇率加载成功:', rates);
+                updateApiStatusDisplay(true);
+                
+                // 设置定期刷新汇率状态（每5分钟检查一次）
+                if (!window.rateRefreshInterval) {
+                    window.rateRefreshInterval = setInterval(async () => {
+                        try {
+                            await loadRates();
+                        } catch (error) {
+                            console.log('定期刷新失败，将在下次尝试');
+                        }
+                    }, 5 * 60 * 1000); // 5分钟
+                }
             } catch (error) {
                 console.error('汇率加载失败:', error);
-                // 使用备用汇率
-                rates = {
-                    BTC: { USD: 65000, ETH: 24.5, SOL: 300, BNB: 100, OKB: 1444, CNY: 460000, JPY: 9500000, KRW: 87000000, SGD: 87000, AED: 240000, HKD: 507000, MYR: 280000, ZHUJIAO: 23000, KFC: 9200, IN11: 153.3, IPHONE17: 81.35, FERRARI: 0.26, PORSCHE: 0.83, XIAOMISU7: 2.13, ROLEX: 8.15, MACBOOK: 65.07 },
-                    ETH: { USD: 2650, BTC: 0.041, SOL: 12, BNB: 4.1, OKB: 58.9, CNY: 18800, JPY: 390000, KRW: 3550000, SGD: 3550, AED: 9750, HKD: 20670, MYR: 11400, ZHUJIAO: 940, KFC: 376, IN11: 6.27, IPHONE17: 3.32, FERRARI: 0.011, PORSCHE: 0.034, XIAOMISU7: 0.087, ROLEX: 0.33, MACBOOK: 2.65 },
-                    SOL: { USD: 220, BTC: 0.0034, ETH: 0.083, BNB: 0.34, OKB: 4.89, CNY: 1560, JPY: 32400, KRW: 295000, SGD: 295, AED: 810, HKD: 1716, MYR: 950, ZHUJIAO: 78, KFC: 31.2, IN11: 0.52, IPHONE17: 0.275, FERRARI: 0.00089, PORSCHE: 0.0028, XIAOMISU7: 0.0072, ROLEX: 0.0276, MACBOOK: 0.22 },
-                    BNB: { USD: 650, BTC: 0.01, ETH: 0.245, SOL: 2.95, OKB: 14.4, CNY: 4600, JPY: 95700, KRW: 872000, SGD: 872, AED: 2390, HKD: 5070, MYR: 2800, ZHUJIAO: 230, KFC: 92, IN11: 1.53, IPHONE17: 0.814, FERRARI: 0.0026, PORSCHE: 0.0084, XIAOMISU7: 0.021, ROLEX: 0.082, MACBOOK: 0.65 },
-                    OKB: { USD: 45, BTC: 0.00069, ETH: 0.017, SOL: 0.204, BNB: 0.069, CNY: 319.5, JPY: 6615, KRW: 60300, SGD: 60.3, AED: 165.15, HKD: 351, MYR: 193.5, ZHUJIAO: 15.97, KFC: 6.39, IN11: 0.106, IPHONE17: 0.056, FERRARI: 0.00018, PORSCHE: 0.00058, XIAOMISU7: 0.0015, ROLEX: 0.0057, MACBOOK: 0.045 },
-                    USD: { BTC: 0.0000154, ETH: 0.00038, SOL: 0.0045, BNB: 0.0015, OKB: 0.022, CNY: 7.1, JPY: 147, KRW: 1340, SGD: 1.34, AED: 3.67, HKD: 7.8, MYR: 4.3, ZHUJIAO: 0.35, KFC: 0.14, IN11: 0.0024, IPHONE17: 0.00125, FERRARI: 0.0000041, PORSCHE: 0.000013, XIAOMISU7: 0.000033, ROLEX: 0.000126, MACBOOK: 0.001 },
-                    CNY: { USD: 0.141, BTC: 0.00000217, ETH: 0.000053, SOL: 0.00064, BNB: 0.00022, OKB: 0.0031, JPY: 20.7, KRW: 189, SGD: 0.189, AED: 0.52, HKD: 1.1, MYR: 0.61, ZHUJIAO: 0.05, KFC: 0.02, IN11: 0.00033, IPHONE17: 0.000176, FERRARI: 0.00000057, PORSCHE: 0.0000018, XIAOMISU7: 0.0000046, ROLEX: 0.0000177, MACBOOK: 0.000141 },
-                    HKD: { USD: 0.128, BTC: 0.00000197, ETH: 0.0000484, SOL: 0.000583, BNB: 0.0002, OKB: 0.0028, CNY: 0.91, JPY: 18.8, KRW: 172, SGD: 0.172, AED: 0.47, MYR: 0.55, ZHUJIAO: 0.046, KFC: 0.018, IN11: 0.0003, IPHONE17: 0.00016, FERRARI: 0.00000052, PORSCHE: 0.0000016, XIAOMISU7: 0.0000042, ROLEX: 0.0000161, MACBOOK: 0.000128 },
-                    JPY: { USD: 0.0068, BTC: 0.000000105, ETH: 0.0000026, SOL: 0.000031, BNB: 0.0000104, CNY: 0.048, KRW: 9.1, SGD: 0.009, AED: 0.025, HKD: 0.053, MYR: 0.029, ZHUJIAO: 0.0024, KFC: 0.00096, IN11: 0.000016, IPHONE17: 0.0000085, FERRARI: 0.000000028, PORSCHE: 0.000000087, XIAOMISU7: 0.00000022, ROLEX: 0.00000085, MACBOOK: 0.0000068 },
-                    MYR: { USD: 0.23, BTC: 0.0000036, ETH: 0.000088, SOL: 0.00105, BNB: 0.00036, CNY: 1.64, JPY: 34.2, KRW: 308, SGD: 0.31, AED: 0.85, HKD: 1.8, ZHUJIAO: 0.082, KFC: 0.033, IN11: 0.00055, IPHONE17: 0.000287, FERRARI: 0.00000094, PORSCHE: 0.00000296, XIAOMISU7: 0.0000076, ROLEX: 0.0000289, MACBOOK: 0.00023 },
-                    SGD: { USD: 0.745, BTC: 0.0000115, ETH: 0.00028, SOL: 0.0034, BNB: 0.0011, CNY: 5.29, JPY: 110, KRW: 1000, AED: 2.74, HKD: 5.82, MYR: 3.2, ZHUJIAO: 0.26, KFC: 0.105, IN11: 0.00175, IPHONE17: 0.000931, FERRARI: 0.000003, PORSCHE: 0.0000096, XIAOMISU7: 0.000025, ROLEX: 0.0000937, MACBOOK: 0.000745 },
-                    AED: { USD: 0.272, BTC: 0.0000042, ETH: 0.0001, SOL: 0.00123, BNB: 0.00042, CNY: 1.93, JPY: 40, KRW: 364, SGD: 0.36, HKD: 2.12, MYR: 1.17, ZHUJIAO: 0.099, KFC: 0.0385, IN11: 0.00064, IPHONE17: 0.00034, FERRARI: 0.0000011, PORSCHE: 0.000035, XIAOMISU7: 0.000089, ROLEX: 0.000342, MACBOOK: 0.000272 },
-                    KRW: { USD: 0.00075, BTC: 0.0000000115, ETH: 0.00000028, SOL: 0.0000034, BNB: 0.00000115, CNY: 0.0053, JPY: 0.11, SGD: 0.001, AED: 0.0028, HKD: 0.0058, MYR: 0.0032, ZHUJIAO: 0.000378, KFC: 0.0001512, IN11: 0.0000025, IPHONE17: 0.00000094, FERRARI: 0.00000000031, PORSCHE: 0.00000000096, XIAOMISU7: 0.0000000025, ROLEX: 0.0000000094, MACBOOK: 0.00000075 },
-                    ZHUJIAO: { USD: 2.82, BTC: 0.0000434, ETH: 0.00106, SOL: 0.0128, BNB: 0.00434, CNY: 20, JPY: 414, KRW: 3774, SGD: 3.78, AED: 10.35, HKD: 22, MYR: 12.1, KFC: 0.4, IN11: 0.0067, IPHONE17: 0.0035, FERRARI: 0.0000114, PORSCHE: 0.0000364, XIAOMISU7: 0.0000926, ROLEX: 0.00035, MACBOOK: 0.0028 },
-                    KFC: { USD: 7.04, BTC: 0.000108, ETH: 0.00266, SOL: 0.032, BNB: 0.0108, CNY: 50, JPY: 1036, KRW: 9436, SGD: 9.44, AED: 25.88, HKD: 55, MYR: 30.3, ZHUJIAO: 2.5, IN11: 0.0167, IPHONE17: 0.0088, FERRARI: 0.0000286, PORSCHE: 0.0000909, XIAOMISU7: 0.000232, ROLEX: 0.00088, MACBOOK: 0.007 },
-                    IN11: { USD: 422.5, BTC: 0.0065, ETH: 0.1594, SOL: 1.92, BNB: 0.65, CNY: 3000, JPY: 62125, KRW: 566000, SGD: 566.15, AED: 1551.5, HKD: 3297, MYR: 1816.75, ZHUJIAO: 150, KFC: 60, IPHONE17: 0.529, FERRARI: 0.00171, PORSCHE: 0.00545, XIAOMISU7: 0.0139, ROLEX: 0.053, MACBOOK: 0.423 },
-                    IPHONE17: { USD: 799, BTC: 0.0123, ETH: 0.3017, SOL: 3.63, BNB: 1.23, CNY: 5673, JPY: 117453, KRW: 1070000, SGD: 1071, AED: 2932, HKD: 6232, MYR: 3436, ZHUJIAO: 284, KFC: 113.6, IN11: 1.89, FERRARI: 0.0036, PORSCHE: 0.0115, XIAOMISU7: 0.0297, ROLEX: 0.10, MACBOOK: 0.8 },
-                    FERRARI: { USD: 246479, BTC: 3.79, ETH: 93, SOL: 1120, BNB: 379, CNY: 1750000, JPY: 36232353, KRW: 330000000, SGD: 330564, AED: 905237, HKD: 1923538, MYR: 1059859, ZHUJIAO: 87500, KFC: 35000, IN11: 583.3, IPHONE17: 308.5, PORSCHE: 3.18, XIAOMISU7: 8.11, ROLEX: 30.97, MACBOOK: 246.73 },
-                    PORSCHE: { USD: 77465, BTC: 1.19, ETH: 29.2, SOL: 352, BNB: 119, CNY: 550000, JPY: 11389706, KRW: 103800000, SGD: 103922, AED: 284638, HKD: 604227, MYR: 333100, ZHUJIAO: 27500, KFC: 11000, IN11: 183.3, IPHONE17: 97, FERRARI: 0.314, XIAOMISU7: 2.55, ROLEX: 9.73, MACBOOK: 77.5 },
-                    XIAOMISU7: { USD: 30408, BTC: 0.468, ETH: 11.47, SOL: 138.2, BNB: 46.8, CNY: 215900, JPY: 4470016, KRW: 40760000, SGD: 40767, AED: 111699, HKD: 237182, MYR: 130757, ZHUJIAO: 10795, KFC: 4318, IN11: 71.97, IPHONE17: 38.1, FERRARI: 0.123, PORSCHE: 0.393, ROLEX: 3.82, MACBOOK: 30.44 },
-                    ROLEX: { USD: 7958, BTC: 0.122, ETH: 3.00, SOL: 36.17, BNB: 12.24, CNY: 56500, JPY: 1170026, KRW: 10660000, SGD: 10668, AED: 29229, HKD: 62072, MYR: 34220, ZHUJIAO: 2825, KFC: 1130, IN11: 18.83, IPHONE17: 9.96, FERRARI: 0.032, PORSCHE: 0.103, XIAOMISU7: 0.262, MACBOOK: 7.97 },
-                    MACBOOK: { USD: 999, BTC: 0.0154, ETH: 0.377, SOL: 4.54, BNB: 1.54, CNY: 7092, JPY: 146853, KRW: 1338000, SGD: 1339, AED: 3667, HKD: 7792, MYR: 4297, ZHUJIAO: 355, KFC: 142, IN11: 2.36, IPHONE17: 1.25, FERRARI: 0.0041, PORSCHE: 0.013, XIAOMISU7: 0.033, ROLEX: 0.126 }
-                };
+                apiStatus.coingecko = false;
+                apiStatus.usingBackup = false;
+                
+                // 根据错误类型显示不同的提示信息
+                let errorMessage = '';
+                if (error.message.includes('CoinGecko API Rate Limited')) {
+                    errorMessage = '已超过 CoinGecko API 访问限制次数，请稍后再试';
+                } else if (error.message.includes('ExchangeRate API Rate Limited')) {
+                    errorMessage = 'ExchangeRate 服务 API 访问限制次数，请稍后再试';
+                } else {
+                    errorMessage = '已超过汇率服务 API 访问限制次数，请稍后再试';
+                }
+                
+                console.error(errorMessage);
+                updateApiStatusDisplay(false, errorMessage);
+                
+                // 清空汇率，表示服务不可用
+                rates = {};
             }
         }
         
-        // 先恢复状态，再加载API
+        // 先设置事件监听器
+        setupBasicEventListeners();
+        
+        // 然后恢复状态
         restoreState();
         
         // 页面加载时获取汇率，加载完成后重新计算
         loadRates().then(() => {
+            console.log('汇率加载完成，准备设置转换功能');
+            
+            // 初始化所有select元素的logo显示
+            for (let i = 1; i <= 6; i++) {
+                const select = document.getElementById(`currency${i}`);
+                if (select) {
+                    updateSelectDisplay(select);
+                }
+            }
+            
             // API加载完成后，如果有数据就重新计算一次以获得最新汇率
             const hasData = Array.from({length: 6}, (_, i) => i + 1).some(i => 
                 document.getElementById(`amount${i}`).value.trim() !== ''
@@ -672,8 +1262,22 @@
             for (let i = 1; i <= 6; i++) {
                 state[`amount${i}`] = document.getElementById(`amount${i}`).value;
                 state[`currency${i}`] = document.getElementById(`currency${i}`).value;
+                
+                // 保存自定义代币信息
+                const select = document.getElementById(`currency${i}`);
+                const customOption = select ? select.querySelector('option[value="CUSTOM"]') : null;
+                if (customOption) {
+                    state[`customToken${i}`] = {
+                        tokenKey: customOption.getAttribute('data-token-key'),
+                        tokenName: customOption.getAttribute('data-token-name'),
+                        tokenSymbol: customOption.getAttribute('data-token-symbol'),
+                        displayText: customOption.getAttribute('data-display-text'),
+                        tokenLogo: customOption.getAttribute('data-token-logo')
+                    };
+                }
             }
             state.lastInputField = lastInputField; // 保存最后输入的栏位
+            state.customTokens = customTokens ? Array.from(customTokens.entries()) : []; // 保存自定义代币数据
             localStorage.setItem('valueConverterState', JSON.stringify(state));
         }
         
@@ -683,6 +1287,12 @@
             if (savedState) {
                 try {
                     const state = JSON.parse(savedState);
+                    
+                    // 恢复自定义代币数据
+                    if (state.customTokens && Array.isArray(state.customTokens)) {
+                        customTokens = new Map(state.customTokens);
+                    }
+                    
                     for (let i = 1; i <= 6; i++) {
                         if (state[`amount${i}`]) {
                             document.getElementById(`amount${i}`).value = state[`amount${i}`];
@@ -690,11 +1300,35 @@
                         if (state[`currency${i}`]) {
                             document.getElementById(`currency${i}`).value = state[`currency${i}`];
                         }
+                        
+                        // 恢复自定义代币选项的属性
+                        if (state[`customToken${i}`]) {
+                            const select = document.getElementById(`currency${i}`);
+                            const customOption = select ? select.querySelector('option[value="CUSTOM"]') : null;
+                            if (customOption) {
+                                const tokenInfo = state[`customToken${i}`];
+                                customOption.setAttribute('data-token-key', tokenInfo.tokenKey || '');
+                                customOption.setAttribute('data-token-name', tokenInfo.tokenName || '');
+                                customOption.setAttribute('data-token-symbol', tokenInfo.tokenSymbol || '');
+                                customOption.setAttribute('data-display-text', tokenInfo.displayText || '');
+                                customOption.setAttribute('data-token-logo', tokenInfo.tokenLogo || '');
+                            }
+                        }
                     }
+                    
                     // 恢复最后输入的栏位
                     if (state.lastInputField) {
                         lastInputField = state.lastInputField;
                     }
+                    
+                    // 恢复自定义代币的外部显示
+                    for (let i = 1; i <= 6; i++) {
+                        const select = document.getElementById(`currency${i}`);
+                        if (select) {
+                            updateSelectDisplay(select);
+                        }
+                    }
+                    
                     console.log('状态已恢复:', state);
                 } catch (error) {
                     console.log('恢复状态失败:', error);
@@ -703,11 +1337,36 @@
         }
         
         function convert(sourceIndex) {
-            if (updating) return;
+            console.log('Convert函数被调用，sourceIndex:', sourceIndex);
+            if (updating) {
+                console.log('正在更新中，跳过本次转换');
+                return;
+            }
+            
+            // 检查汇率服务是否可用
+            if (!rates || Object.keys(rates).length === 0) {
+                console.error('汇率服务不可用，无法进行转换');
+                updating = false;
+                return;
+            }
+            
             updating = true;
             
             const sourceAmount = document.getElementById(`amount${sourceIndex}`).value.replace(/,/g, '');
-            const sourceCurrency = document.getElementById(`currency${sourceIndex}`).value;
+            let sourceCurrency = document.getElementById(`currency${sourceIndex}`).value;
+            
+            // 处理自定义代币：如果选择的是CUSTOM，获取实际的代币符号
+            if (sourceCurrency === 'CUSTOM') {
+                const sourceSelect = document.getElementById(`currency${sourceIndex}`);
+                const customOption = sourceSelect.querySelector('option[value="CUSTOM"]');
+                const tokenKey = customOption ? customOption.getAttribute('data-token-key') : null;
+                if (tokenKey) {
+                    sourceCurrency = tokenKey;
+                }
+            }
+            
+            console.log('转换参数 - 金额:', sourceAmount, '货币:', sourceCurrency);
+            console.log('rates对象存在:', !!rates, '包含货币数量:', rates ? Object.keys(rates).length : 0);
             
             if (!sourceAmount || sourceAmount === '') {
                 for (let i = 1; i <= 6; i++) {
@@ -727,7 +1386,18 @@
             
             for (let i = 1; i <= 6; i++) {
                 if (i !== sourceIndex) {
-                    const targetCurrency = document.getElementById(`currency${i}`).value;
+                    let targetCurrency = document.getElementById(`currency${i}`).value;
+                    
+                    // 处理目标货币也是自定义代币的情况
+                    if (targetCurrency === 'CUSTOM') {
+                        const targetSelect = document.getElementById(`currency${i}`);
+                        const customOption = targetSelect.querySelector('option[value="CUSTOM"]');
+                        const tokenKey = customOption ? customOption.getAttribute('data-token-key') : null;
+                        if (tokenKey) {
+                            targetCurrency = tokenKey;
+                        }
+                    }
+                    
                     let result;
                     
                     if (sourceCurrency === targetCurrency) {
@@ -745,20 +1415,638 @@
             updating = false;
         }
         
-        for (let i = 1; i <= 6; i++) {
-            document.getElementById(`amount${i}`).addEventListener('input', () => {
-                lastInputField = i; // 更新最后输入的栏位
-                convert(i);
-                saveState(); // 保存状态
+        // 所有货币的logo和显示文本映射
+        const currencyLogos = {
+            // 加密货币 - 使用真实logo
+            'BTC': { logo: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png', text: 'BTC', type: 'image' },
+            'ETH': { logo: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png', text: 'ETH', type: 'image' },
+            'SOL': { logo: 'https://assets.coingecko.com/coins/images/4128/large/solana.png', text: 'SOL', type: 'image' },
+            'BNB': { logo: 'https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png', text: 'BNB', type: 'image' },
+            'OKB': { logo: 'https://assets.coingecko.com/coins/images/4463/large/WeChat_Image_20220118095654.png', text: 'OKB', type: 'image' },
+            // 法币 - 使用emoji
+            'USD': { logo: '🇺🇸', text: 'USD', type: 'emoji' },
+            'CNY': { logo: '🇨🇳', text: 'CNY', type: 'emoji' },
+            'HKD': { logo: '🇭🇰', text: 'HKD', type: 'emoji' },
+            'JPY': { logo: '🇯🇵', text: 'JPY', type: 'emoji' },
+            'KRW': { logo: '🇰🇷', text: 'KRW', type: 'emoji' },
+            'SGD': { logo: '🇸🇬', text: 'SGD', type: 'emoji' },
+            'AED': { logo: '🇦🇪', text: 'AED', type: 'emoji' },
+            'MYR': { logo: '🇲🇾', text: 'MYR', type: 'emoji' },
+            // 实物 - 使用emoji
+            'ZHUJIAO': { logo: '🍚', text: '猪脚饭', type: 'emoji' },
+            'KFC': { logo: '🍗', text: 'KFC', type: 'emoji' },
+            'IN11': { logo: '💃', text: 'in11嫩模', type: 'emoji' },
+            'IPHONE17': { logo: '📱', text: 'iPhone17', type: 'emoji' },
+            'MACBOOK': { logo: '💻', text: 'MacBook Air', type: 'emoji' },
+            'ROLEX': { logo: '⌚', text: 'Rolex', type: 'emoji' },
+            'XIAOMISU7': { logo: '🏎️', text: 'Xiaomi Su7', type: 'emoji' },
+            'PORSCHE': { logo: '🏎️', text: 'Porsche 718', type: 'emoji' },
+            'FERRARI': { logo: '🏎️', text: 'Ferrari Roma', type: 'emoji' }
+        };
+
+        // 更新下拉菜单的外部显示
+        function updateSelectDisplay(selectElement) {
+            const selectedValue = selectElement.value;
+            
+            // 处理自定义代币
+            const customOption = selectElement.querySelector('option[value="CUSTOM"]');
+            if (selectedValue === 'CUSTOM' && customOption) {
+                const displayText = customOption.getAttribute('data-display-text');
+                const logoUrl = customOption.getAttribute('data-token-logo');
+                
+                if (displayText && logoUrl) {
+                    createSelectOverlay(selectElement, logoUrl, displayText, 'image');
+                } else {
+                    restoreOriginalDisplay(selectElement);
+                }
+            }
+            // 处理所有预设货币
+            else if (currencyLogos[selectedValue]) {
+                const currencyData = currencyLogos[selectedValue];
+                createSelectOverlay(selectElement, currencyData.logo, currencyData.text, currencyData.type);
+            } else {
+                restoreOriginalDisplay(selectElement);
+            }
+        }
+        
+        // 创建选择框覆盖层
+        function createSelectOverlay(selectElement, logoUrl, displayText, logoType = 'image') {
+            // 创建一个临时的显示层来覆盖原始的select显示
+            let displayOverlay = selectElement.nextElementSibling;
+            if (!displayOverlay || !displayOverlay.classList.contains('custom-select-display')) {
+                displayOverlay = document.createElement('div');
+                displayOverlay.className = 'custom-select-display';
+                
+                // 获取select元素的精确位置和样式
+                const selectStyles = window.getComputedStyle(selectElement);
+                const isMediaQuery480 = window.matchMedia('(max-width: 480px)').matches;
+                const isMediaQuery768 = window.matchMedia('(max-width: 768px)').matches;
+                
+                // 根据媒体查询调整样式
+                let adjustedRightMargin = '45px'; // 默认扣除下拉箭头的宽度
+                
+                if (isMediaQuery480) {
+                    adjustedRightMargin = '30px'; // 移动端箭头更小
+                } else if (isMediaQuery768) {
+                    adjustedRightMargin = '35px'; // 中等屏幕
+                }
+                
+                displayOverlay.style.cssText = `
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: ${adjustedRightMargin};
+                    height: 100%;
+                    pointer-events: none;
+                    z-index: 1;
+                    padding: 0;
+                    margin: 0;
+                    font-size: ${selectStyles.fontSize};
+                    font-family: ${selectStyles.fontFamily};
+                    line-height: ${selectStyles.lineHeight};
+                    color: #333;
+                    background: transparent;
+                    box-sizing: border-box;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                `;
+                selectElement.parentNode.style.position = 'relative';
+                selectElement.parentNode.insertBefore(displayOverlay, selectElement.nextSibling);
+            }
+            
+            // 清空内容并添加Logo + 文本
+            displayOverlay.innerHTML = '';
+            
+            // 创建容器div
+            const contentDiv = document.createElement('div');
+            
+            // 重新获取当前的媒体查询状态和样式
+            const selectStyles = window.getComputedStyle(selectElement);
+            const isMediaQuery480 = window.matchMedia('(max-width: 480px)').matches;
+            const isMediaQuery768 = window.matchMedia('(max-width: 768px)').matches;
+            
+            let paddingLeft = selectStyles.paddingLeft;
+            let logoTextGap = '8px';
+            let logoSize = '20px';
+            let emojiSize = '14px';
+            
+            if (isMediaQuery480) {
+                paddingLeft = '10px'; // 匹配 CSS: padding: 8px 30px 8px 10px
+                logoTextGap = '6px'; // 移动端减小间距
+                logoSize = '18px'; // 移动端减小logo
+                emojiSize = '12px'; // 移动端减小emoji
+            } else if (isMediaQuery768) {
+                paddingLeft = '12px'; // 匹配 CSS: padding: 10px 35px 10px 12px
+                logoTextGap = '7px'; // 中等屏幕减小间距
+                logoSize = '19px'; // 中等屏幕稍微减小logo
+                emojiSize = '13px'; // 中等屏幕稍微减小emoji
+            }
+            
+            contentDiv.style.cssText = `
+                display: flex;
+                align-items: center;
+                padding-left: ${paddingLeft};
+                height: 100%;
+                gap: ${logoTextGap};
+            `;
+            
+            // 创建Logo元素
+            let logoElement;
+            if (logoType === 'emoji') {
+                logoElement = document.createElement('div');
+                logoElement.textContent = logoUrl; // logoUrl实际上是emoji字符
+                logoElement.style.cssText = `
+                    width: ${logoSize};
+                    height: ${logoSize};
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    font-size: ${emojiSize};
+                    background: rgba(0,0,0,0.1);
+                `;
+            } else {
+                logoElement = document.createElement('img');
+                logoElement.src = logoUrl;
+                logoElement.style.cssText = `
+                    width: ${logoSize};
+                    height: ${logoSize};
+                    border-radius: 50%;
+                    object-fit: cover;
+                    flex-shrink: 0;
+                `;
+                
+                // 处理图片加载失败
+                logoElement.onerror = function() {
+                    logoElement.style.display = 'none';
+                    textSpan.textContent = displayText;
+                };
+            }
+            
+            // 创建文本元素
+            const textSpan = document.createElement('span');
+            textSpan.textContent = displayText;
+            textSpan.style.cssText = `
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            `;
+            
+            contentDiv.appendChild(logoElement);
+            contentDiv.appendChild(textSpan);
+            displayOverlay.appendChild(contentDiv);
+            selectElement.style.color = 'transparent';
+        }
+        
+        // 恢复原始显示
+        function restoreOriginalDisplay(selectElement) {
+            selectElement.style.color = '';
+            const displayOverlay = selectElement.nextElementSibling;
+            if (displayOverlay && displayOverlay.classList.contains('custom-select-display')) {
+                displayOverlay.style.display = 'none';
+            }
+        }
+
+        // 基础换算功能事件监听器
+        function setupBasicEventListeners() {
+            for (let i = 1; i <= 6; i++) {
+                // 金额输入事件
+                document.getElementById(`amount${i}`).addEventListener('input', () => {
+                    console.log('Input event triggered for amount' + i);
+                    lastInputField = i;
+                    convert(i);
+                    saveState();
+                });
+                
+                // 货币选择事件
+                document.getElementById(`currency${i}`).addEventListener('change', function() {
+                    console.log('Currency change event triggered for currency' + i);
+                    
+                    // 处理自定义代币选择
+                    if (this.value === 'CUSTOM') {
+                        currentSelectId = this.id;
+                        openCustomTokenModal();
+                        return;
+                    }
+                    
+                    // 记住之前的选择
+                    this.setAttribute('data-previous-value', this.value);
+                    
+                    // 更新外部显示
+                    updateSelectDisplay(this);
+                    
+                    // 货币选择变更时，以最后输入的栏位为基准重新计算
+                    convert(lastInputField);
+                    saveState();
+                });
+                
+                // 处理重新选择自定义代币的特殊情况
+                document.getElementById(`currency${i}`).addEventListener('focus', function() {
+                    // 当获得焦点时，如果当前是CUSTOM，临时改为一个特殊值
+                    if (this.value === 'CUSTOM') {
+                        this.setAttribute('data-was-custom', 'true');
+                        // 临时设为一个不存在的值，这样再选CUSTOM时会触发change
+                        this.value = 'TEMP_CUSTOM_PLACEHOLDER';
+                    }
+                });
+                
+                document.getElementById(`currency${i}`).addEventListener('blur', function() {
+                    // 失去焦点时，如果还是临时值，恢复为CUSTOM
+                    if (this.value === 'TEMP_CUSTOM_PLACEHOLDER' && this.getAttribute('data-was-custom') === 'true') {
+                        this.value = 'CUSTOM';
+                    }
+                    this.removeAttribute('data-was-custom');
+                });
+                
+                // 处理重新选择自定义代币的情况
+                // 只在change事件中处理，不使用其他事件
+                // 这样避免了下拉菜单打开时就触发弹窗的问题
+            }
+        }
+        
+        // 自定义代币功能
+        let currentSelectId = null;
+        let customTokens = new Map(); // 存储自定义代币数据
+        
+        // 基于市值排名估算价格的函数
+        function getEstimatedPrice(coin) {
+            // 如果没有市值排名，给一个默认的小价格
+            if (!coin.market_cap_rank) {
+                return 0.001; // 默认 $0.001
+            }
+            
+            const rank = coin.market_cap_rank;
+            
+            // 基于市值排名的粗略价格估算
+            if (rank <= 10) return 50; // 前10名，大概$50
+            if (rank <= 50) return 5; // 前50名，大概$5
+            if (rank <= 100) return 1; // 前100名，大概$1
+            if (rank <= 500) return 0.1; // 前500名，大概$0.1
+            if (rank <= 1000) return 0.01; // 前1000名，大概$0.01
+            return 0.001; // 其他，大概$0.001
+        }
+        
+        // 本地常见代币数据库
+        function getLocalTokenResults(query) {
+            const commonTokens = [
+                { id: 'dogecoin', name: 'Dogecoin', symbol: 'doge', large: 'https://assets.coingecko.com/coins/images/5/large/dogecoin.png', market_cap_rank: 8 },
+                { id: 'cardano', name: 'Cardano', symbol: 'ada', large: 'https://assets.coingecko.com/coins/images/975/large/cardano.png', market_cap_rank: 9 },
+                { id: 'polkadot', name: 'Polkadot', symbol: 'dot', large: 'https://assets.coingecko.com/coins/images/12171/large/polkadot.png', market_cap_rank: 12 },
+                { id: 'chainlink', name: 'Chainlink', symbol: 'link', large: 'https://assets.coingecko.com/coins/images/877/large/chainlink-new-logo.png', market_cap_rank: 15 },
+                { id: 'polygon', name: 'Polygon', symbol: 'matic', large: 'https://assets.coingecko.com/coins/images/4713/large/matic-token-icon.png', market_cap_rank: 16 },
+                { id: 'avalanche-2', name: 'Avalanche', symbol: 'avax', large: 'https://assets.coingecko.com/coins/images/12559/large/coin-round-red.png', market_cap_rank: 17 },
+                { id: 'shiba-inu', name: 'Shiba Inu', symbol: 'shib', large: 'https://assets.coingecko.com/coins/images/11939/large/shiba.png', market_cap_rank: 18 },
+                { id: 'uniswap', name: 'Uniswap', symbol: 'uni', large: 'https://assets.coingecko.com/coins/images/12504/large/uniswap-uni.png', market_cap_rank: 20 },
+                { id: 'litecoin', name: 'Litecoin', symbol: 'ltc', large: 'https://assets.coingecko.com/coins/images/2/large/litecoin.png', market_cap_rank: 21 },
+                { id: 'near', name: 'NEAR Protocol', symbol: 'near', large: 'https://assets.coingecko.com/coins/images/10365/large/near_icon.png', market_cap_rank: 25 },
+                { id: 'aptos', name: 'Aptos', symbol: 'apt', large: 'https://assets.coingecko.com/coins/images/26455/large/aptos_round.png', market_cap_rank: 30 },
+                { id: 'arbitrum', name: 'Arbitrum', symbol: 'arb', large: 'https://assets.coingecko.com/coins/images/16547/large/photo_2023-03-29_21.47.00.jpeg', market_cap_rank: 35 },
+                { id: 'optimism', name: 'Optimism', symbol: 'op', large: 'https://assets.coingecko.com/coins/images/25244/large/Optimism.png', market_cap_rank: 40 }
+            ];
+            
+            const lowerQuery = query.toLowerCase();
+            return commonTokens.filter(token => 
+                token.name.toLowerCase().includes(lowerQuery) || 
+                token.symbol.toLowerCase().includes(lowerQuery)
+            );
+        }
+        
+        // 自定义代币的事件监听已合并到上面的currency change事件中
+        
+        // 打开自定义代币弹窗
+        function openCustomTokenModal() {
+            document.getElementById('customTokenModal').style.display = 'block';
+            document.getElementById('tokenSearchInput').value = '';
+            document.getElementById('searchResults').innerHTML = '';
+            setupSearchInputListener(); // 设置回车键监听
+            
+            // 自动聚焦到输入框
+            setTimeout(() => {
+                const searchInput = document.getElementById('tokenSearchInput');
+                if (searchInput) {
+                    searchInput.focus();
+                }
+            }, 100); // 短暂延迟确保弹窗完全显示后再聚焦
+        }
+        
+        // 关闭自定义代币弹窗
+        function closeCustomTokenModal() {
+            document.getElementById('customTokenModal').style.display = 'none';
+            
+            // 如果用户没有选择新代币就关闭弹窗，保持当前状态
+            if (currentSelectId) {
+                const currentSelect = document.getElementById(currentSelectId);
+                if (currentSelect && currentSelect.value === 'CUSTOM') {
+                    const customOption = currentSelect.querySelector('option[value="CUSTOM"]');
+                    const hasToken = customOption && customOption.getAttribute('data-token-key');
+                    
+                    if (!hasToken) {
+                        // 第一次使用自定义代币但没有选择，恢复到之前的选择
+                        const previousValue = currentSelect.getAttribute('data-previous-value');
+                        if (previousValue && previousValue !== 'CUSTOM') {
+                            currentSelect.value = previousValue;
+                        } else {
+                            currentSelect.value = 'BTC';
+                        }
+                    }
+                    // 如果已经有代币，保持CUSTOM选择不变
+                }
+            }
+            
+            currentSelectId = null;
+        }
+        
+        // 点击弹窗外部关闭
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('customTokenModal');
+            if (event.target === modal) {
+                closeCustomTokenModal();
+            }
+        });
+        
+        // 搜索代币
+        async function searchTokens() {
+            const query = document.getElementById('tokenSearchInput').value.trim();
+            if (!query) {
+                return;
+            }
+            
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const searchResults = document.getElementById('searchResults');
+            
+            // 显示加载动画
+            loadingIndicator.style.display = 'block';
+            searchResults.innerHTML = '';
+            
+            try {
+                // 使用CoinGecko API搜索代币
+                let searchUrl = `https://api.coingecko.com/api/v3/search?query=${encodeURIComponent(query)}`;
+                console.log('搜索URL:', searchUrl);
+                
+                let response;
+                try {
+                    response = await fetch(searchUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                } catch (corsError) {
+                    console.log('搜索API直接访问失败，使用本地数据库:', corsError);
+                    // 使用本地的常见代币数据库作为备用
+                    const localResults = getLocalTokenResults(query);
+                    response = {
+                        ok: true,
+                        json: async () => ({ coins: localResults })
+                    };
+                }
+                
+                if (!response.ok) {
+                    throw new Error('搜索请求失败');
+                }
+                
+                const data = await response.json();
+                loadingIndicator.style.display = 'none';
+                
+                displaySearchResults(data.coins || []);
+                
+            } catch (error) {
+                console.error('搜索代币时出错:', error);
+                loadingIndicator.style.display = 'none';
+                searchResults.innerHTML = '<div class="no-results">搜索失败，请稍后重试</div>';
+            }
+        }
+        
+        // 显示搜索结果
+        function displaySearchResults(coins) {
+            const searchResults = document.getElementById('searchResults');
+            
+            if (coins.length === 0) {
+                searchResults.innerHTML = '<div class="no-results">未找到相关代币</div>';
+                return;
+            }
+            
+            searchResults.innerHTML = '';
+            
+            // 限制显示前10个结果
+            coins.slice(0, 10).forEach(coin => {
+                const tokenDiv = document.createElement('div');
+                tokenDiv.className = 'token-result';
+                tokenDiv.onclick = () => selectCustomToken(coin);
+                
+                tokenDiv.innerHTML = `
+                    <img src="${coin.large || coin.thumb}" alt="${coin.name}" class="token-logo" onerror="this.style.display='none'">
+                    <div class="token-content">
+                        <div class="token-name-row">
+                            <div class="token-name">${coin.name}</div>
+                        </div>
+                        <div class="token-bottom-row">
+                            <div class="token-symbol">${coin.symbol}</div>
+                            <div class="token-price">
+                                市值排名: ${coin.market_cap_rank || 'N/A'}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                searchResults.appendChild(tokenDiv);
             });
-            document.getElementById(`currency${i}`).addEventListener('change', () => {
-                // 货币选择变更时，以最后输入的栏位为基准重新计算
-                convert(lastInputField);
-                saveState(); // 保存状态
-            });
+        }
+        
+        // 选择自定义代币
+        async function selectCustomToken(coin) {
+            try {
+                console.log('选择的代币:', coin);
+                
+                // 获取代币详细信息和价格
+                // 尝试直接访问，如果失败则使用CORS代理
+                let priceUrl = `https://api.coingecko.com/api/v3/simple/price?ids=${coin.id}&vs_currencies=usd`;
+                console.log('请求价格URL:', priceUrl);
+                
+                let response;
+                try {
+                    response = await fetch(priceUrl, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    });
+                } catch (corsError) {
+                    console.log('直接访问失败，尝试使用备用方案:', corsError);
+                    // 如果直接访问失败，使用一个备用的价格估算
+                    // 基于市值排名提供一个大概的价格
+                    const estimatedPrice = getEstimatedPrice(coin);
+                    console.log('使用估算价格:', estimatedPrice);
+                    
+                    // 创建模拟响应
+                    response = {
+                        ok: true,
+                        json: async () => ({ [coin.id]: { usd: estimatedPrice } })
+                    };
+                    
+                    // 提示用户正在使用估算价格
+                    console.log('⚠️ 注意：正在使用基于市值排名的估算价格，可能不够准确');
+                }
+                
+                console.log('价格API响应状态:', response.status);
+                
+                if (!response.ok) {
+                    console.error('价格API请求失败:', response.status, response.statusText);
+                    throw new Error(`获取代币价格失败: ${response.status} ${response.statusText}`);
+                }
+                
+                const priceData = await response.json();
+                console.log('价格数据:', priceData);
+                
+                const price = priceData[coin.id]?.usd || 0;
+                console.log('解析出的价格:', price);
+                
+                if (price === 0) {
+                    console.warn('价格为0，可能数据有误');
+                }
+                
+                // 存储自定义代币信息
+                const tokenKey = coin.symbol.toUpperCase();
+                const logoUrl = coin.large || coin.thumb || coin.image;
+                customTokens.set(tokenKey, {
+                    id: coin.id,
+                    name: coin.name,
+                    symbol: coin.symbol,
+                    image: logoUrl,
+                    price: price,
+                    isEstimated: price === getEstimatedPrice(coin) // 标记是否为估算价格
+                });
+                
+                // 不添加到下拉菜单，只在当前会话中使用
+                
+                // 设置触发搜索的下拉菜单使用自定义代币
+                if (currentSelectId) {
+                    const currentSelect = document.getElementById(currentSelectId);
+                    if (currentSelect) {
+                        // 保持CUSTOM选项的原始文本"🔍 自定义代币"，但存储代币信息
+                        const customOption = currentSelect.querySelector('option[value="CUSTOM"]');
+                        if (customOption) {
+                            // 更新代币信息（覆盖之前的选择）
+                            customOption.setAttribute('data-token-key', tokenKey);
+                            customOption.setAttribute('data-token-name', coin.name);
+                            customOption.setAttribute('data-token-symbol', coin.symbol.toUpperCase());
+                            customOption.setAttribute('data-token-logo', logoUrl);
+                            
+                            // 设置外部显示的文本（只显示代币符号，Logo将通过CSS显示）
+                            customOption.setAttribute('data-display-text', coin.symbol.toUpperCase());
+                        }
+                        currentSelect.value = 'CUSTOM';
+                        
+                        // 记住这个选择作为"之前的值"
+                        currentSelect.setAttribute('data-previous-value', 'CUSTOM');
+                        
+                        // 立即更新外部显示
+                        updateSelectDisplay(currentSelect);
+                    }
+                }
+                
+                // 重新加载汇率以包含新的自定义代币
+                await loadRates();
+                
+                // 关闭弹窗
+                closeCustomTokenModal();
+                
+                // 重新计算转换
+                if (currentSelectId) {
+                    const selectIndex = parseInt(currentSelectId.replace('currency', ''));
+                    convert(selectIndex);
+                    saveState();
+                }
+                
+            } catch (error) {
+                console.error('选择代币时出错:', error);
+                console.error('错误详情:', error.message);
+                console.error('错误堆栈:', error.stack);
+                
+                // 提供更详细的错误信息
+                let errorMessage = '获取代币信息失败';
+                if (apiStatus.rateLimited || error.message.includes('429')) {
+                    errorMessage = 'API调用已达限制，请等待几分钟后重试';
+                } else if (!apiStatus.coingecko) {
+                    errorMessage = '已超过汇率服务 API 访问限制次数，自定义代币功能暂时无法使用';
+                } else if (error.message.includes('Failed to fetch')) {
+                    errorMessage += '：网络连接问题，请检查网络或稍后重试';
+                } else if (error.message.includes('403') || error.message.includes('401')) {
+                    errorMessage += '：API访问受限';
+                } else {
+                    errorMessage += `：${error.message}`;
+                }
+                
+                alert(errorMessage);
+            }
+        }
+        
+        // 搜索防抖
+        let searchTimeout;
+        
+        // 自动搜索监听器 - 在弹窗打开时设置
+        function setupSearchInputListener() {
+            const input = document.getElementById('tokenSearchInput');
+            if (input && !input.hasSearchListener) {
+                input.addEventListener('input', function(e) {
+                    const query = e.target.value.trim();
+                    
+                    // 清除之前的搜索定时器
+                    if (searchTimeout) {
+                        clearTimeout(searchTimeout);
+                    }
+                    
+                    if (query === '') {
+                        // 如果输入为空，清空结果
+                        document.getElementById('searchResults').innerHTML = '';
+                        document.getElementById('loadingIndicator').style.display = 'none';
+                        return;
+                    }
+                    
+                    // 设置防抖延迟：输入停止300毫秒后开始搜索
+                    searchTimeout = setTimeout(() => {
+                        searchTokens();
+                    }, 300);
+                });
+                
+                // 保留回车键搜索
+                input.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        if (searchTimeout) {
+                            clearTimeout(searchTimeout);
+                        }
+                        searchTokens();
+                    }
+                });
+                
+                input.hasSearchListener = true;
+            }
         }
         
     </script>
     </div>
+
+    <!-- 自定义代币弹窗 -->
+    <div id="customTokenModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>自定义代币搜索</h3>
+                <span class="close" onclick="closeCustomTokenModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="search-container">
+                    <input type="text" id="tokenSearchInput" placeholder="输入代币名称或符号 (如: Bitcoin, BTC)" />
+                </div>
+                <div id="searchResults" class="search-results"></div>
+                <div id="loadingIndicator" class="loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>正在搜索代币...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
