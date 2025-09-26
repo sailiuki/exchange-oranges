@@ -1679,6 +1679,20 @@
                         this.value = 'CUSTOM';
                     }
                     this.removeAttribute('data-was-custom');
+                    
+                    // 手机端：如果弹窗已打开，确保select完全失去焦点
+                    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                    if (isMobile) {
+                        const modal = document.getElementById('customTokenModal');
+                        if (modal && modal.style.display === 'block') {
+                            // 强制select失去焦点
+                            this.blur();
+                            // 移除任何可能的焦点
+                            if (document.activeElement === this) {
+                                document.activeElement.blur();
+                            }
+                        }
+                    }
                 });
                 
                 // 手机端额外的fallback：监听click事件
@@ -1765,22 +1779,46 @@
             // 检测是否为移动设备
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             
+            // 手机端：先强制所有select失去焦点
+            if (isMobile) {
+                // 立即强制所有select元素失去焦点
+                const allSelects = document.querySelectorAll('select');
+                allSelects.forEach(select => {
+                    select.blur();
+                });
+                
+                // 确保当前没有任何元素有焦点
+                if (document.activeElement && document.activeElement.tagName === 'SELECT') {
+                    document.activeElement.blur();
+                }
+            }
+            
             // 自动聚焦到输入框
             if (isMobile) {
-                // 手机端：延长延迟时间，避免与select事件冲突
+                // 手机端：延长延迟并强制聚焦，确保select事件完全结束
                 setTimeout(() => {
                     const searchInput = document.getElementById('tokenSearchInput');
                     if (searchInput) {
-                        // 手机端需要用户交互才能真正聚焦，所以我们添加一个点击提示
-                        searchInput.placeholder = '点击此处开始搜索代币...';
-                        // 尝试聚焦，但不强制
-                        try {
-                            searchInput.focus();
-                        } catch (e) {
-                            console.log('Mobile focus attempt:', e);
+                        searchInput.placeholder = '输入代币名称或符号...';
+                        
+                        // 再次确保没有select元素有焦点
+                        const activeElement = document.activeElement;
+                        if (activeElement && activeElement.tagName === 'SELECT') {
+                            activeElement.blur();
                         }
+                        
+                        // 强制聚焦到搜索输入框
+                        searchInput.focus();
+                        
+                        // 备选方案：触发点击事件来确保聚焦
+                        setTimeout(() => {
+                            if (document.activeElement !== searchInput) {
+                                searchInput.click();
+                                searchInput.focus();
+                            }
+                        }, 50);
                     }
-                }, 300); // 更长的延迟确保select元素的事件完全结束
+                }, 600); // 更长的延迟确保所有select相关事件完成
             } else {
                 // 桌面端：正常处理
                 setTimeout(() => {
