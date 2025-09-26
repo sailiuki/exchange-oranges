@@ -1631,6 +1631,15 @@
                         return;
                     }
                     
+                    // Fallback: 检测是否是重复选择CUSTOM的情况（主要用于手机端）
+                    if (this.value === 'TEMP_CUSTOM_PLACEHOLDER') {
+                        // 如果选择了临时占位符，说明用户重新选择了CUSTOM
+                        this.value = 'CUSTOM';
+                        currentSelectId = this.id;
+                        openCustomTokenModal();
+                        return;
+                    }
+                    
                     // 记住之前的选择
                     this.setAttribute('data-previous-value', this.value);
                     
@@ -1643,7 +1652,10 @@
                 });
                 
                 // 处理重新选择自定义代币的特殊情况
-                document.getElementById(`currency${i}`).addEventListener('focus', function() {
+                const selectElement = document.getElementById(`currency${i}`);
+                
+                // 桌面端：使用focus事件
+                selectElement.addEventListener('focus', function() {
                     // 当获得焦点时，如果当前是CUSTOM，临时改为一个特殊值
                     if (this.value === 'CUSTOM') {
                         this.setAttribute('data-was-custom', 'true');
@@ -1652,12 +1664,40 @@
                     }
                 });
                 
-                document.getElementById(`currency${i}`).addEventListener('blur', function() {
+                // 手机端：使用touchstart事件作为补充
+                selectElement.addEventListener('touchstart', function() {
+                    // 在手机端，touchstart可能比focus更可靠
+                    if (this.value === 'CUSTOM' && !this.getAttribute('data-was-custom')) {
+                        this.setAttribute('data-was-custom', 'true');
+                        this.value = 'TEMP_CUSTOM_PLACEHOLDER';
+                    }
+                });
+                
+                selectElement.addEventListener('blur', function() {
                     // 失去焦点时，如果还是临时值，恢复为CUSTOM
                     if (this.value === 'TEMP_CUSTOM_PLACEHOLDER' && this.getAttribute('data-was-custom') === 'true') {
                         this.value = 'CUSTOM';
                     }
                     this.removeAttribute('data-was-custom');
+                });
+                
+                // 手机端额外的fallback：监听click事件
+                selectElement.addEventListener('click', function() {
+                    // 记录点击时的值，用于检测是否是重复选择
+                    this.setAttribute('data-click-value', this.value);
+                });
+                
+                // 检测select选项变化（针对手机端的特殊处理）
+                selectElement.addEventListener('input', function() {
+                    const clickValue = this.getAttribute('data-click-value');
+                    // 如果点击前是CUSTOM，现在选择的也是CUSTOM，说明是重复选择
+                    if (clickValue === 'CUSTOM' && this.value === 'CUSTOM') {
+                        // 确保currentSelectId被设置并打开弹窗
+                        if (!currentSelectId || !document.getElementById('customTokenModal').style.display || document.getElementById('customTokenModal').style.display === 'none') {
+                            currentSelectId = this.id;
+                            openCustomTokenModal();
+                        }
+                    }
                 });
                 
                 // 处理重新选择自定义代币的情况
@@ -1722,13 +1762,34 @@
             document.getElementById('searchResults').innerHTML = '';
             setupSearchInputListener(); // 设置回车键监听
             
+            // 检测是否为移动设备
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            
             // 自动聚焦到输入框
-            setTimeout(() => {
-                const searchInput = document.getElementById('tokenSearchInput');
-                if (searchInput) {
-                    searchInput.focus();
-                }
-            }, 100); // 短暂延迟确保弹窗完全显示后再聚焦
+            if (isMobile) {
+                // 手机端：延长延迟时间，避免与select事件冲突
+                setTimeout(() => {
+                    const searchInput = document.getElementById('tokenSearchInput');
+                    if (searchInput) {
+                        // 手机端需要用户交互才能真正聚焦，所以我们添加一个点击提示
+                        searchInput.placeholder = '点击此处开始搜索代币...';
+                        // 尝试聚焦，但不强制
+                        try {
+                            searchInput.focus();
+                        } catch (e) {
+                            console.log('Mobile focus attempt:', e);
+                        }
+                    }
+                }, 300); // 更长的延迟确保select元素的事件完全结束
+            } else {
+                // 桌面端：正常处理
+                setTimeout(() => {
+                    const searchInput = document.getElementById('tokenSearchInput');
+                    if (searchInput) {
+                        searchInput.focus();
+                    }
+                }, 100);
+            }
         }
         
         // 关闭自定义代币弹窗
@@ -1990,6 +2051,23 @@
         function setupSearchInputListener() {
             const input = document.getElementById('tokenSearchInput');
             if (input && !input.hasSearchListener) {
+                // 手机端特殊处理：添加触摸和聚焦事件
+                const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+                
+                if (isMobile) {
+                    // 手机端：添加触摸事件来触发聚焦
+                    input.addEventListener('touchstart', function(e) {
+                        e.stopPropagation(); // 防止事件冒泡
+                        this.focus();
+                    });
+                    
+                    // 手机端：当用户第一次点击输入框时自动聚焦
+                    input.addEventListener('click', function() {
+                        this.placeholder = '输入代币名称或符号...';
+                        this.focus();
+                    });
+                }
+                
                 input.addEventListener('input', function(e) {
                     const query = e.target.value.trim();
                     
